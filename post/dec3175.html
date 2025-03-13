@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Unity马赛克去除的几种方法 | BR-blog</title><meta name="author" content="BR"><meta name="copyright" content="BR"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="判断是否可以去码​	可以先将整个项目文件全部拖入AssetStudio进行解包，一般来说可以查看Sprite或Texture2D类型的数据观察原贴图是否存在马赛克，或者在游戏中观察马赛克是静态还是动态形式的。 ​	一般有一下几种情况：  原贴图无码，实际游戏存在马赛克。可以去码  原贴图有码，实际游戏存在动态马赛克，即码上加码。可以去部分码，无法完全清除  原贴图有码，实际游戏是静态马赛克，是直接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity马赛克去除的几种方法">
+<meta property="og:url" content="https://blog.yzbrh.top/post/dec3175.html">
+<meta property="og:site_name" content="BR-blog">
+<meta property="og:description" content="判断是否可以去码​	可以先将整个项目文件全部拖入AssetStudio进行解包，一般来说可以查看Sprite或Texture2D类型的数据观察原贴图是否存在马赛克，或者在游戏中观察马赛克是静态还是动态形式的。 ​	一般有一下几种情况：  原贴图无码，实际游戏存在马赛克。可以去码  原贴图有码，实际游戏存在动态马赛克，即码上加码。可以去部分码，无法完全清除  原贴图有码，实际游戏是静态马赛克，是直接">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.yzbrh.top/img/avatar.jpg">
+<meta property="article:published_time" content="2025-02-16T05:33:05.000Z">
+<meta property="article:modified_time" content="2025-02-16T05:33:05.000Z">
+<meta property="article:author" content="BR">
+<meta property="article:tag" content="unity">
+<meta property="article:tag" content="reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.yzbrh.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Unity马赛克去除的几种方法",
+  "url": "https://blog.yzbrh.top/post/dec3175.html",
+  "image": "https://blog.yzbrh.top/img/avatar.jpg",
+  "datePublished": "2025-02-16T05:33:05.000Z",
+  "dateModified": "2025-02-16T05:33:05.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BR",
+      "url": "https://blog.yzbrh.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.ico"><link rel="canonical" href="https://blog.yzbrh.top/post/dec3175.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+          
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Unity马赛克去除的几种方法',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css?3"><link rel="stylesheet" href="/css/universe.css?1"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(http://bing.img.run/1920x1080.php);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/loading.gif" data-original="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活(建设中)</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comment-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者(建设中)</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://bing.img.run/rand.php);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">BR-blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Unity马赛克去除的几种方法</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活(建设中)</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comment-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者(建设中)</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Unity马赛克去除的几种方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-16T05:33:05.000Z" title="发表于 2025-02-16 13:33:05">2025-02-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-16T05:33:05.000Z" title="更新于 2025-02-16 13:33:05">2025-02-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1105</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新,文章内容可能已经过时&quot;,&quot;postUpdate&quot;:&quot;2025-02-16 13:33:05&quot;}" hidden></div><h2 id="判断是否可以去码"><a href="#判断是否可以去码" class="headerlink" title="判断是否可以去码"></a>判断是否可以去码</h2><p>​	可以先将整个项目文件全部拖入<strong>AssetStudio</strong>进行解包，一般来说可以查看<strong>Sprite</strong>或<strong>Texture2D</strong>类型的数据观察原贴图是否存在马赛克，或者在游戏中观察马赛克是静态还是动态形式的。</p>
+<p>​	一般有一下几种情况：</p>
+<ul>
+<li><p>原贴图无码，实际游戏存在马赛克。可以去码</p>
+</li>
+<li><p>原贴图有码，实际游戏存在动态马赛克，即码上加码。可以去部分码，无法完全清除</p>
+</li>
+<li><p>原贴图有码，实际游戏是静态马赛克，是直接搬贴图用的。无法通过本文方法去码</p>
+</li>
+</ul>
+<h2 id="插件去码"><a href="#插件去码" class="headerlink" title="插件去码"></a>插件去码</h2><h4 id="版本确定"><a href="#版本确定" class="headerlink" title="版本确定"></a>版本确定</h4><p>​	首先需要确定游戏架构，Unity游戏运行时一般有两种，<strong>Mono</strong>和<strong>IL2CPP</strong>，由于性能和跨平台移植便捷性等原因，新游戏一般都是IL2CPP了，区分两者很简单，游戏目录有<strong>Assembly-CSharp.dll</strong>这个DLL就是mono，包含有<strong>il2cpp_data</strong>目录就是il2cpp。</p>
+<p>​	确定引擎版本可右键启动游戏的exe文件，选择<strong>属性-详细信息-产品版本</strong>可以得到</p>
+<h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>​	首先安装插件框架</p>
+<p>​	注意<strong>IL2CPP</strong>使用6.0版本，<strong>Mono</strong>请使用5.4版本</p>
+<p>​	按照<strong>BepInEx</strong>的安装说明解压到游戏目录后启动游戏即可，注意需要选择对应好的版本，具体可参照具体项目的README文档。</p>
+<h5 id="翻译插件"><a href="#翻译插件" class="headerlink" title="翻译插件"></a>翻译插件</h5><p>​	按照<a target="_blank" rel="noopener" href="https://github.com/bbepis/XUnity.AutoTranslator/"><strong>XUnity.AutoTranslator</strong></a>的安装说明解压到指定目录，具体可参照具体项目的README文档。</p>
+<p>​	此外，部分游戏可能已经内置了ReiPatcher导致后续我们使用BeplnEx安装XUnity.AutoTranslator会出现冲突报错，可以先使用以下脚本卸载ReiPatcher：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">title REIPATCHER CLEANUP</span><br><span class="line">chcp 65001</span><br><span class="line">color 0a</span><br><span class="line">cls</span><br><span class="line"></span><br><span class="line">:start</span><br><span class="line">echo.</span><br><span class="line">echo Make sure you&#x27;re running this .bat file from the game folder.</span><br><span class="line">echo -------------------------------------</span><br><span class="line">echo Select a funcion.</span><br><span class="line">echo -------------------------------------</span><br><span class="line">echo.</span><br><span class="line">echo [1] Full clean up - Remove REI</span><br><span class="line">echo.</span><br><span class="line">echo [2] Close</span><br><span class="line">echo.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">choice /c 12 /m &quot;Choose one:&quot;</span><br><span class="line"></span><br><span class="line">if errorlevel 2 (</span><br><span class="line">cls</span><br><span class="line">echo.</span><br><span class="line">goto end</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if errorlevel 1 (</span><br><span class="line">cls.</span><br><span class="line">echo.</span><br><span class="line">echo Removing Plugins please wait...</span><br><span class="line">rd /q /s AutoTranslator</span><br><span class="line">rd /q /s ReiPatcher</span><br><span class="line">del /q /f &quot;SetupReiPatcherAndAutoTranslator.exe&quot;</span><br><span class="line">del /q /f *&quot;(Patch and Run).*&quot;</span><br><span class="line">cls</span><br><span class="line">echo Moving to *_Data\Managed</span><br><span class="line">timeout 5</span><br><span class="line">cd *_Re_Data\Managed</span><br><span class="line">cls.</span><br><span class="line">echo Resuming cleanup</span><br><span class="line">timeout 5</span><br><span class="line">rd /q /s Translators</span><br><span class="line">del /q /f &quot;UnityEngine.CoreModule.dll&quot; &quot;0Harmony.dll&quot; &quot;ExIni.dll&quot; &quot;Mono.Cecil.dll&quot; &quot;MonoMod.RuntimeDetour.dll&quot; &quot;MonoMod.Utils.dll&quot; &quot;ReiPatcher.exe&quot; &quot;XUnity.AutoTranslator.Plugin.Core.dll&quot; &quot;XUnity.AutoTranslator.Plugin.ExtProtocol.dll&quot; &quot;XUnity.Common.dll&quot; &quot;XUnity.ResourceRedirector.dll&quot;</span><br><span class="line">ren &quot;UnityEngine.CoreModule.dll.*.bak&quot; &quot;UnityEngine.CoreModule.dll.bak&quot;</span><br><span class="line">copy &quot;UnityEngine.CoreModule.dll.bak&quot; &quot;UnityEngine.CoreModule.dll&quot;</span><br><span class="line">exit</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">:done</span><br><span class="line">cls.</span><br><span class="line">echo Process Complete...</span><br><span class="line">echo Exiting in...</span><br><span class="line">timeout 5</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">:end</span><br><span class="line">cls.</span><br><span class="line">echo Exiting...</span><br><span class="line">timeout 5</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>​	保存为bat文件放在项目根目录双击运行即可。</p>
+<h5 id="去码插件"><a href="#去码插件" class="headerlink" title="去码插件"></a>去码插件</h5><p>​	选择对应版本的<a target="_blank" rel="noopener" href="https://github.com/ManlyMarco/UniversalUnityDemosaics/">UniversalUnityDemosaics</a>下载后解压将dll文件放入<strong>BepInEx\plugins</strong>目录即可，每个dll是不同去码方式，不一定需要全部放入</p>
+<h2 id="手动去码"><a href="#手动去码" class="headerlink" title="手动去码"></a>手动去码</h2><p>​	有时候无法使用自动去码或自动去码效果不佳时，可尝试手动去码。</p>
+<p>​	首先使用<strong>AssetStudioModGUI</strong>加载项目文件，搜索关键词<strong>mosa</strong>、<strong>mosaic</strong>、<strong>mozaic</strong>、<strong>censor</strong>、<strong>msc</strong>、<strong>mozaiku</strong>、<strong>pixel</strong>、<strong>texture</strong>、<strong>CG</strong>、<strong>extra</strong>等关键词。</p>
+<p>​	找到关键文件后记录下<strong>Path ID</strong>、<strong>Size</strong>及<strong>来源的文件</strong>使用UABEA进行相应修改即可。</p>
+<p>​	进行具体操作前请先注意要备份！</p>
+<p>​	对于不同情况存在不同解决方法</p>
+<h3 id="修改-assets："><a href="#修改-assets：" class="headerlink" title="修改.assets："></a>修改.assets：</h3><ul>
+<li><p>同时带有“live2d”和“mosaic”字段的文件，尝试使用UABEA删除该文件即可；</p>
+</li>
+<li><p>带有“mosaic”字段的shader类型文件，首先通过UABEA使用<strong>Export Dump</strong>导出为txt文件，替换<strong>0 float val &#x3D; 15</strong>为<strong>0 float val &#x3D; 0</strong>后在使用<strong>Import Dump</strong>导回即可；</p>
+</li>
+<li><p>带有“mosaic”字段的mesh类型文件，可以尝试使用UABEA删除该文件；</p>
+</li>
+<li><p>存在名字类似为”LocalPixelizeURPRendererFeature”的MonoBehaviour类型文件，使用UABEA将该文件导出，替换<strong>m_Active &#x3D; 1</strong>为<strong>m_Active &#x3D; 0</strong>后重新导入回去即可</p>
+</li>
+</ul>
+<h3 id="修改Assembly-CSharp-dll"><a href="#修改Assembly-CSharp-dll" class="headerlink" title="修改Assembly-CSharp.dll"></a>修改Assembly-CSharp.dll</h3><p>​	或者尝试修改<strong>Assembly-CSharp.dll</strong>文件：</p>
+<ol>
+<li><p>用dnSpy工具加载该文件；</p>
+</li>
+<li><p>搜索mosaic，点击结果跳转到类；</p>
+</li>
+<li><p>编译类，将“float”浮点数的值改为“0.01f”（要足够小）；</p>
+</li>
+<li><p>编译后保存。</p>
+</li>
+</ol>
+<h2 id="工具下载链接"><a href="#工具下载链接" class="headerlink" title="工具下载链接"></a>工具下载链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/aelurum/AssetStudio/releases/">AssetStudio（解包工具）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Perfare/Il2CppDumper/releases">Il2CppDumper（Dump出l2Cpp方式打包的DLL，辅助解包工具查看结构化数据）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nesrak1/UABEA">UABEA（解包修改）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BepInEx/BepInEx/releases/">BepInEx（插件框架）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bbepis/XUnity.AutoTranslator/releases">XUnity.AutoTranslator（翻译插件）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ManlyMarco/UniversalUnityDemosaics/releases">UniversalUnityDemosaics（通用去码插件）</a></li>
+</ul>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/931638445879590913">记录一次汉化Unity游戏并手动去码的经过 - 哔哩哔哩</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/959619058538381334">部分Unity游戏去码方法归纳 - 哔哩哔哩</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.yzbrh.top">BR</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.yzbrh.top/post/dec3175.html">https://blog.yzbrh.top/post/dec3175.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.yzbrh.top" target="_blank">BR-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/unity/">unity</a><a class="post-meta__tags" href="/tags/reverse/">reverse</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/loading.gif" data-original="/img/wechat.png" alt="感谢你的赞赏"/></a><div class="post-qr-code-desc">感谢你的赞赏</div></li></ul></div></div><nav class="pagination-post" id="pagination"></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BR</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/YZBRH"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">建设中~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%8E%BB%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">判断是否可以去码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%8E%BB%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">插件去码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E7%A1%AE%E5%AE%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">版本确定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">2.0.2.</span> <span class="toc-text">插件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BF%BB%E8%AF%91%E6%8F%92%E4%BB%B6"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">翻译插件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%BB%E7%A0%81%E6%8F%92%E4%BB%B6"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">去码插件</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%8E%BB%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">手动去码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-assets%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">修改.assets：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9Assembly-CSharp-dll"><span class="toc-number">3.2.</span> <span class="toc-text">修改Assembly-CSharp.dll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">工具下载链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/dec3175.html" title="Unity马赛克去除的几种方法">Unity马赛克去除的几种方法</a><time datetime="2025-02-16T05:33:05.000Z" title="发表于 2025-02-16 13:33:05">2025-02-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/10fa73ae.html" title="VNCTF2025-WP">VNCTF2025-WP</a><time datetime="2025-02-10T05:59:00.000Z" title="发表于 2025-02-10 13:59:00">2025-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/c2cf88b8.html" title="2024年度总结"><img src="/img/loading.gif" data-original="/images/f0adcc3244dd7fd5358698e9945ac7e8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024年度总结"/></a><div class="content"><a class="title" href="/post/c2cf88b8.html" title="2024年度总结">2024年度总结</a><time datetime="2025-01-29T06:02:27.000Z" title="发表于 2025-01-29 14:02:27">2025-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/27dd2185.html" title="XAUTCTF2024NewCupPartr2暨2025冬季赛-官方题解">XAUTCTF2024NewCupPartr2暨2025冬季赛-官方题解</a><time datetime="2025-01-22T09:41:31.000Z" title="发表于 2025-01-22 17:41:31">2025-01-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/31fded05.html" title="Ollama+CodeGeeX+VScode的本地LLM部署方案">Ollama+CodeGeeX+VScode的本地LLM部署方案</a><time datetime="2024-12-04T12:50:05.000Z" title="发表于 2024-12-04 20:50:05">2024-12-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/5d53a887.html" title="简单盘点Linux">简单盘点Linux</a><time datetime="2024-11-25T05:03:36.000Z" title="发表于 2024-11-25 13:03:36">2024-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/4fcd1189.html" title="XAUTCTF2024选拔赛部分WP----非官方集合版">XAUTCTF2024选拔赛部分WP----非官方集合版</a><time datetime="2024-11-24T00:59:37.000Z" title="发表于 2024-11-24 08:59:37">2024-11-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/9662863a.html" title="Frp+Proxifier反向代理实现内网穿透">Frp+Proxifier反向代理实现内网穿透</a><time datetime="2024-10-27T16:46:38.000Z" title="发表于 2024-10-28 00:46:38">2024-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/45ab8fde.html" title="WP书写指南">WP书写指南</a><time datetime="2024-10-12T13:09:05.000Z" title="发表于 2024-10-12 21:09:05">2024-10-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/3dd951cb.html" title="QQBot用户使用手册V1.0">QQBot用户使用手册V1.0</a><time datetime="2024-10-06T17:19:15.000Z" title="发表于 2024-10-07 01:19:15">2024-10-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By BR</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023014186号-2</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.yzbrh.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.yzbrh.top',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><div class="aplayer no-destroy" data-id="12305505573" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-order="random" data-mutex="true"> </div><script defer src="/js/sweetalert2.all.js"></script><script defer src="/js/lunar.js"></script><script defer src="/js/day.js"></script><script async src="/js/console.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="150" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>
