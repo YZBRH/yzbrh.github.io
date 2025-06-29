@@ -1,0 +1,435 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《这泱泱美丽世界》第0集解析 | BR-blog</title><meta name="author" content="BR"><meta name="copyright" content="BR"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="《这泱泱美丽世界》第0集解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《这泱泱美丽世界》第0集解析">
+<meta property="og:url" content="https://blog.yzbrh.top/post/b2b3bdef.html">
+<meta property="og:site_name" content="BR-blog">
+<meta property="og:description" content="《这泱泱美丽世界》第0集解析">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.yzbrh.top/img/avatar.jpg">
+<meta property="article:published_time" content="2025-06-29T17:24:08.000Z">
+<meta property="article:modified_time" content="2025-06-29T17:24:08.000Z">
+<meta property="article:author" content="BR">
+<meta property="article:tag" content="动漫">
+<meta property="article:tag" content="解析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.yzbrh.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "《这泱泱美丽世界》第0集解析",
+  "url": "https://blog.yzbrh.top/post/b2b3bdef.html",
+  "image": "https://blog.yzbrh.top/img/avatar.jpg",
+  "datePublished": "2025-06-29T17:24:08.000Z",
+  "dateModified": "2025-06-29T17:24:08.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BR",
+      "url": "https://blog.yzbrh.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.ico"><link rel="canonical" href="https://blog.yzbrh.top/post/b2b3bdef.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+          
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《这泱泱美丽世界》第0集解析',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css?3"><link rel="stylesheet" href="/css/universe.css?1"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(http://bing.img.run/1920x1080.php);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/loading.gif" data-original="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活(建设中)</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comment-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(http://bing.img.run/rand.php);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">BR-blog</span></a><a class="nav-page-title" href="/"><span class="site-name">《这泱泱美丽世界》第0集解析</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活(建设中)</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comment-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">《这泱泱美丽世界》第0集解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-29T17:24:08.000Z" title="发表于 2025-06-30 01:24:08">2025-06-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-29T17:24:08.000Z" title="更新于 2025-06-30 01:24:08">2025-06-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2375</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新,文章内容可能已经过时&quot;,&quot;postUpdate&quot;:&quot;2025-06-30 01:24:08&quot;}" hidden></div><p>​	偶然间发现的一部挺有意思的原创动画，翻了翻主创动态，发现有这么一个活动：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629203449353.png" alt="image-20250629203449353"></p>
+<p>​	<code>2C58kLuE5XbiPxnC96vDJKKTthE2jU6WpAaJF1Egsecg4R</code>经过base58解码可以得到：<strong>能来点乐子人吗好无聊啊</strong>。</p>
+<p>​	所以我来当乐子人了嘻嘻。</p>
+<p>​	配合原视频访问更佳，原剧链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gMNezCE2p">“网络抽象+编程番？”【原创动画第0集】这泱泱美丽世界</a></p>
+<p>​	以下分析内容仅代表个人观点。</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><h2 id="00-06"><a href="#00-06" class="headerlink" title="00:06"></a>00:06</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629193010894.png" alt="image-20250629193010894"></p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629200907998.png" alt="image-20250629200907998"></p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629204902377.png" alt="image-20250629204902377"></p>
+<p>​	故事开篇，开始就从<strong>网络谣言</strong>着手，周围还有很多围观群众，这一幕的手机人主要是各类表情包，表示着<strong>吃瓜群众</strong>（不发言只围观）</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629212237330.png" alt="image-20250629212237330"></p>
+<p>​	从左往右的手机人，首先是：</p>
+<h3 id="黄豆表情包"><a href="#黄豆表情包" class="headerlink" title="黄豆表情包"></a>黄豆表情包</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629200924753.png" alt="image-20250629200924753"></p>
+<p>​	黄豆类表情包，挺常见的，找到最接近的是这一个：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629201206652.png" alt="image-20250629201206652"></p>
+<h3 id="熊猫人表情包"><a href="#熊猫人表情包" class="headerlink" title="熊猫人表情包"></a>熊猫人表情包</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629201421264.png" alt="image-20250629201421264"></p>
+<p>​	熊猫人，表情包常客，经常和各种人脸结合，视频里的这一个应该是刘梓晨，参考原型：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629202211401.png" alt="image-20250629202211401"></p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629202428430.png" alt="image-20250629202428430"></p>
+<p>​	片段尾还出现了一次：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629205236448.png" alt="image-20250629205236448"></p>
+<p>​	这个比较像是金善旴</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629205619279.png" alt="image-20250629205619279"></p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629205637748.png" alt="image-20250629205637748"></p>
+<h3 id="ぺんちゃん"><a href="#ぺんちゃん" class="headerlink" title="ぺんちゃん"></a>ぺんちゃん</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629202755687.png" alt="image-20250629202755687"></p>
+<p>​	是日本画师もじじ笔下的一个企鹅形象，这只小企鹅叫做ぺんちゃん，也是表情包常客了</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629203905175.png" alt="image-20250629203905175"></p>
+<h3 id="猫"><a href="#猫" class="headerlink" title="猫"></a>猫</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629205713743.png" alt="image-20250629205713743"></p>
+<p>​	原图像是：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629210148657.png" alt="image-20250629210148657"></p>
+<h3 id="绿豆蛙"><a href="#绿豆蛙" class="headerlink" title="绿豆蛙"></a>绿豆蛙</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629193926122.png" alt="image-20250629193926122"></p>
+<p>​	绿豆蛙，翔通动漫旗下经典的卡通形象：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629194201606.png" alt="image-20250629194201606"></p>
+<p>​	曾经火过好一段时间，各类表情包都很多。</p>
+<h3 id="二次元-猿"><a href="#二次元-猿" class="headerlink" title="二次元(猿)"></a>二次元(猿)</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629194426212.png" alt="image-20250629194426212"></p>
+<p>​	这个应该是二次元(猿)，身上还穿着痛衣，痛衣上的角色应该是后面出现的偶像芙可可。</p>
+<h3 id="草泥马"><a href="#草泥马" class="headerlink" title="草泥马"></a>草泥马</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629204155872.png" alt="image-20250629204155872"></p>
+<p>​	一个羊驼形象的表情包</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629204248927.png" alt="image-20250629204248927"></p>
+<h3 id="颜文字"><a href="#颜文字" class="headerlink" title="颜文字"></a>颜文字</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629204348937.png" alt="image-20250629204348937"></p>
+<p>​	以前表情功能相对不完善的b站经常可以看到，本质上是使用一些字符进行排列组合表示不同的含义，例如：）或者像是T_T这样</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629204629965.png" alt="image-20250629204629965"></p>
+<h3 id="花开富贵"><a href="#花开富贵" class="headerlink" title="花开富贵"></a>花开富贵</h3><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629204936083.png" alt="image-20250629204936083"></p>
+<p>​	常见于有一定年纪的长辈的聊天记录中，也是很有代表性的一类表情包了。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629205149532.png" alt="image-20250629205149532"></p>
+<h2 id="00-57"><a href="#00-57" class="headerlink" title="00:57"></a>00:57</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629211911808.png" alt="image-20250629211911808"></p>
+<p>​	左右两方手机人以“红色和绿色谁是最高贵的颜色”为主题进行的对抗，本身这个问题就用了非常极端的“最”字，引发了一场<strong>网络骂战</strong>，仔细观察还会发现有绿衣服和红衣服的手机人被打倒在地上（从对问题的讨论变为了<strong>人身攻击</strong>），根据剧情来看，发展成这样的局面和<strong>网络水军</strong>（一种特殊的垃圾用户，他们被组织起来发表、回复、转发博文或提及他人，以达到快速传播目标博文的目的）脱不了干系。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629212303383.png" alt="image-20250629212303383"></p>
+<h2 id="01-01"><a href="#01-01" class="headerlink" title="01:01"></a>01:01</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629212519851.png" alt="image-20250629212519851"></p>
+<p>​	下方身着道士服装拿着“招魂”旗子的手机人表示着招摇过市的网络骗子，以及后面跟随的穿着破烂且手机屏裂开（表示被骗的倾家荡产？）的手机人（即受骗者），即使骗子被抓了还不知道自己受骗了，甚至还竖个大拇指。</p>
+<h2 id="01-05"><a href="#01-05" class="headerlink" title="01:05"></a>01:05</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629213014128.png" alt="image-20250629213014128"></p>
+<p>​	乱涂乱画我更偏向于是指的<strong>灌水</strong>（即向论坛中发大量无意义的帖子）行为，但是说是发广告感觉也可以说的通，这里的社区代指的应该就是论坛。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629213328588.png" alt="image-20250629213328588"></p>
+<h2 id="01-15"><a href="#01-15" class="headerlink" title="01:15"></a>01:15</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629235826011.png" alt="image-20250629235826011"></p>
+<p>​	阳谷（养蛊）社区？结合后面各种莫名其妙的举报，感觉挺合理，确实是在养蛊了。</p>
+<h2 id="01-23"><a href="#01-23" class="headerlink" title="01:23"></a>01:23</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630000228647.png" alt="image-20250630000228647"></p>
+<p>​	人们在网络空间的隐私保护意识普遍薄弱，在很多情况下和“裸奔”没什么区别，自然而然就会有”偷窥“的人。</p>
+<h2 id="01-33"><a href="#01-33" class="headerlink" title="01:33"></a>01:33</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629213556026.png" alt="image-20250629213556026"></p>
+<p>​	细节中分，不会是我家哥哥吧？</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629213748519.png" alt="image-20250629213748519"></p>
+<h2 id="01-58"><a href="#01-58" class="headerlink" title="01:58"></a>01:58</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629213959208.png" alt="image-20250629213959208"></p>
+<p>​	中间靠下503的牌子：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629214029342.png" alt="image-20250629214029342"></p>
+<p>​	503是HTTP状态码，表示“由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中”，在剧中结合旁边破烂的红色房子，应该是表示在维护中。</p>
+<p>​	正常可通行的状态码应该是200。</p>
+<p>​	<img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629214320601.png" alt="image-20250629214320601"></p>
+<p>​	运营商的经典广告，不如我29元180GB流量（bushi）</p>
+<h2 id="02-00"><a href="#02-00" class="headerlink" title="02:00"></a>02:00</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629214643014.png" alt="image-20250629214643014"></p>
+<p>​	左边海报的C应该表示C语言，P表示php语言，机器人像是表示的网络爬虫，又或许代指的人工智能领域。</p>
+<h2 id="02-04"><a href="#02-04" class="headerlink" title="02:04"></a>02:04</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629215027167.png" alt="image-20250629215027167"></p>
+<p>​	这块的海报我个人感觉有些政治敏感了，作者本意应该是表示红色和绿色俩个阵营，但是绿营也可以表示<strong>中国台湾地区坚持“台独”理念的政界通称</strong>。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629215132869.png" alt="image-20250629215132869"></p>
+<h2 id="02-07"><a href="#02-07" class="headerlink" title="02:07"></a>02:07</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629215359456.png" alt="image-20250629215359456"></p>
+<p>​	拐杖+老式按键手机，很明显代指的就是不善于使用互联网的老年人了，经常会有老年人被<strong>网络诈骗</strong>买保健品的案例。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629215744126.png" alt="image-20250629215744126"></p>
+<p>​	不过此处应该不只是诈骗，可能还有暗示人口拐卖（连人带钱一起骗）。</p>
+<p>​	超绝速度墨镜男。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629215921829.png" alt="image-20250629215921829"></p>
+<p>​	是一个域名，没有显示完全，疑似是：<a target="_blank" rel="noopener" href="http://xuanwushen/%EF%BC%8C%E4%B8%8D%E8%BF%87%E8%AE%BF%E9%97%AE%E4%B8%8D%E4%BA%86%EF%BC%8C%E6%A0%B9%E6%8D%AE%E6%8B%BC%E9%9F%B3%E7%9A%84%E8%AF%9D%E4%BC%BC%E4%B9%8E%E6%98%AF%E6%8C%87%22%E7%8E%84%E6%AD%A6%E7%A5%9E">http://xuanwushen/，不过访问不了，根据拼音的话似乎是指&quot;玄武神</a>“</p>
+<h2 id="02-32"><a href="#02-32" class="headerlink" title="02:32"></a>02:32</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629220316355.png" alt="image-20250629220316355"></p>
+<p>​	黑色小猫是天猫的吉祥物形象，这里是天猫双11狂欢广告，天猫打钱！（bushi）</p>
+<h2 id="02-35"><a href="#02-35" class="headerlink" title="02:35"></a>02:35</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630002021229.png" alt="image-20250630002021229"></p>
+<p>​	传送的效果是通过窗口来实现的，挺符合世界观的。</p>
+<h2 id="03-24"><a href="#03-24" class="headerlink" title="03:24"></a>03:24</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629221243686.png" alt="image-20250629221243686"></p>
+<p>​	这里女主的名片，联系方式是：<a href="mailto:&#x79;&#105;&#x71;&#105;&#109;&#x69;&#x61;&#111;&#49;&#x30;&#x31;&#x31;&#x30;&#x30;&#x40;&#x73;&#x67;&#x7a;&#106;&#46;&#99;&#111;&#x6d;">&#x79;&#105;&#x71;&#105;&#109;&#x69;&#x61;&#111;&#49;&#x30;&#x31;&#x31;&#x30;&#x30;&#x40;&#x73;&#x67;&#x7a;&#106;&#46;&#99;&#111;&#x6d;</a>，其中yiqimiao很明显是女主名字易其渺；</p>
+<p>​	而后面的101100是一串二进制，怎么看都很可疑，101100从二进制转为十进制是44，44在ascii码表中表示<code>$</code>，而在windows系统中，以<code>$</code>作为结尾的账户表示隐藏账户，这是黑客在进行恶意渗透后用于权限维持的一种常见手段，但就目前剧集来看，与女主管理员的人设似乎不是很相符，毕竟管理员没有必要隐藏自己的账号，或许是个伏笔？</p>
+<p>​	sgzj感觉像是拼音首字母，暂时不太能确定含义。</p>
+<h2 id="03-30"><a href="#03-30" class="headerlink" title="03:30"></a>03:30</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629222148056.png" alt="image-20250629222148056"></p>
+<p>​	背景的龙是Kali Linux的标志:</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629222253020.png" alt="image-20250629222253020"></p>
+<p>​	这是一个专注于网络安全领域的一个Linux发行版系统，感觉后续剧集会有网安的攻防对抗呀（期待ing~）</p>
+<h2 id="03-37"><a href="#03-37" class="headerlink" title="03:37"></a>03:37</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629222543730.png" alt="image-20250629222543730"></p>
+<p>​	右上角是一个颜文字，右下角有一个二极管，二极管是基础的电路元件，算是整个计算机硬件层面的基础元件了，引申到网络语义，也可以代指思考过程或价值取向过于单一、绝对，不能多角度思考或不能接受多元化事物的人。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629222810245.png" alt="image-20250629222810245"></p>
+<p>​	然后就是前面诈骗老年人的神秘墨镜男被抓了。</p>
+<h2 id="03-40"><a href="#03-40" class="headerlink" title="03:40"></a>03:40</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629223114730.png" alt="image-20250629223114730"></p>
+<p>​	网络不是法外之地。</p>
+<h2 id="05-48"><a href="#05-48" class="headerlink" title="05:48"></a>05:48</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629225000810.png" alt="image-20250629225000810"></p>
+<p>​	圣经，万恶之源：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629225335628.png" alt="image-20250629225335628"></p>
+<p>​	间接反映了饭圈文化中“造神”现象，以及踩一捧一的引战行为。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629225431032.png" alt="image-20250629225431032"></p>
+<p>​	关注永雏塔菲谢谢喵~</p>
+<h2 id="06-00"><a href="#06-00" class="headerlink" title="06:00"></a>06:00</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629225557770.png" alt="image-20250629225557770"></p>
+<p>​	我系渣渣辉，系兄弟就来砍我~</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630003122592.png" alt="image-20250630003122592"></p>
+<p>​	怎么还有挂。</p>
+<h2 id="06-12"><a href="#06-12" class="headerlink" title="06:12"></a>06:12</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629225704433.png" alt="image-20250629225704433"></p>
+<p>​	作者老师，再出一话吧，我快不行了。</p>
+<p>​	<img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630003229086.png" alt="image-20250630003229086"></p>
+<p>​	《反套路联盟》的小客串。</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630003258562.png" alt="image-20250630003258562"></p>
+<h2 id="06-27"><a href="#06-27" class="headerlink" title="06:27"></a>06:27</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629225852570.png" alt="image-20250629225852570"></p>
+<p>​	就算腱鞘炎也要打音游吗，哈基人你这家伙。</p>
+<h2 id="06-40"><a href="#06-40" class="headerlink" title="06:40"></a>06:40</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629230118774.png" alt="image-20250629230118774"></p>
+<p>​	梦的开始：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello,world!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="06-43"><a href="#06-43" class="headerlink" title="06:43"></a>06:43</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629230529229.png" alt="image-20250629230529229">	闪过很多帧01字符串，试着将几组01字符串解码发现是乱码，不知道是方式不对还是确实没什么含义。</p>
+<h2 id="07-01"><a href="#07-01" class="headerlink" title="07:01"></a>07:01</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629232340745.png" alt="image-20250629232340745"></p>
+<p>​	这框框一看就是微博。</p>
+<p>​	同时前后呼应了。</p>
+<h2 id="07-36"><a href="#07-36" class="headerlink" title="07:36"></a>07:36</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629232538348.png" alt="image-20250629232538348"></p>
+<p>​	右上角是<code>%e6%ae%b7%e6%b8%85%e8%bd%a9</code>，经过url解码是：<strong>殷清轩</strong></p>
+<p>​	此处的手机人右手好像在藏着什么，“答”指的似乎是答案，应该是利用互联网进行的作弊行为。</p>
+<h2 id="07-42"><a href="#07-42" class="headerlink" title="07:42"></a>07:42</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629232752464.png" alt="image-20250629232752464"></p>
+<p>​	右上角是<code>%e6%98%93%e5%85%b6%e6%b8%ba%0a</code>，经过url解码得到：<strong>易其渺</strong></p>
+<h2 id="07-49"><a href="#07-49" class="headerlink" title="07:49"></a>07:49</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629233428956.png" alt="image-20250629233428956"></p>
+<p>​	右上角是<code>%e9%92%9f%e8%95%99</code>，经过url解码得到：<strong>钟蕙</strong></p>
+<h2 id="07-55"><a href="#07-55" class="headerlink" title="07:55"></a>07:55</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629234449293.png" alt="image-20250629234449293"></p>
+<p>​	<code>%e5%85%ac%e5%ad%99%e8%af%86%e8%87%be%0a</code>，经过url解码是：<strong>公孙识臾</strong></p>
+<p>​	此处两人互殴（互喷），还有一个乐子人。</p>
+<h2 id="08-03"><a href="#08-03" class="headerlink" title="08:03"></a>08:03</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630004334965.png" alt="image-20250630004334965"></p>
+<p>​	绿衣手机人围观（看热闹不嫌事大）</p>
+<h2 id="08-13"><a href="#08-13" class="headerlink" title="08:13"></a>08:13</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630004506657.png" alt="image-20250630004506657"></p>
+<p>​	自诩正义的理中客，未知全貌站在上帝视角进行批判。</p>
+<h2 id="08-19"><a href="#08-19" class="headerlink" title="08:19"></a>08:19</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629234723657.png" alt="image-20250629234723657"></p>
+<p>​	两人的动作像海浪一样上下起伏，配合歌词，两人既引起了这场声浪，也是这场声浪的一部分。</p>
+<p>​	左下角字符串的看不全，不过作者给了纯净版：</p>
+<p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250629234813520.png" alt="image-20250629234813520"></p>
+<p>​	<code>572R57uc5peg6L655rOV5pyJ6L65</code>经过base64解码可以得到：<strong>网络无边法有边</strong></p>
+<p>​	<code>5paH5piO5LiK572R6I6r6LWw5YCP</code>经过base64解码可以得到：<strong>文明上网莫走倏</strong></p>
+<h2 id="08-24"><a href="#08-24" class="headerlink" title="08:24"></a>08:24</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630004914783.png" alt="image-20250630004914783"></p>
+<p>​	众人的声讨如雨点袭来。</p>
+<h2 id="08-31"><a href="#08-31" class="headerlink" title="08:31"></a>08:31</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630005035655.png" alt="image-20250630005035655"></p>
+<p>​	最终自己被<strong>网络暴力</strong>。</p>
+<h2 id="08-37"><a href="#08-37" class="headerlink" title="08:37"></a>08:37</h2><p><img src="/img/loading.gif" data-original="/./../post_img/fc42000c26f9157303691e6846172a84/image-20250630005158125.png" alt="image-20250630005158125"></p>
+<p>​	最后受不了下线退网跑路。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BB%BF%E8%B1%86%E8%9B%99/25019">绿豆蛙（翔通动漫旗下的卡通形象）_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Q6k3YYEMu">来看看那些常用表情包的原型吧_哔哩哔哩_bilibili</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%88%98%E6%A2%93%E6%99%A8/18717431">刘梓晨_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%87%91%E5%96%84%E6%97%B4/24117273">金善旴_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Je41147bT">小企鹅？呆萌？这只小企鹅叫什么名字【表情包科普第八期】</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%8D%89%E6%B3%A5%E9%A9%AC/6289166">草泥马（网络十大神兽之一）_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%90%83%E7%93%9C%E7%BE%A4%E4%BC%97/19902553">吃瓜群众_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E9%AA%82%E6%88%98/6139782">网络骂战_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E6%B0%B4%E5%86%9B/5519438">网络水军_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%81%8C%E6%B0%B4/132580">灌水_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">HTTP 状态码 | 菜鸟教程</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BB%BF%E8%90%A5/581660">绿营（中国台湾地区坚持“台独”理念的政界通称）_百度百科</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bonelee/p/15938755.html">如何隐藏、克隆账号及两种排查隐藏账号方法 - bonelee - 博客园</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.kali.org/">Kali Linux | Penetration Testing and Ethical Hacking Linux Distribution</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%8C%E6%9E%81%E7%AE%A1/55310143">二极管（网络语言中指思维单一绝对的人）_百度百科</a></p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.yzbrh.top">BR</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.yzbrh.top/post/b2b3bdef.html">https://blog.yzbrh.top/post/b2b3bdef.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.yzbrh.top" target="_blank">BR-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8A%A8%E6%BC%AB/">动漫</a><a class="post-meta__tags" href="/tags/%E8%A7%A3%E6%9E%90/">解析</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/loading.gif" data-original="/img/wechat.png" alt="感谢你的赞赏"/></a><div class="post-qr-code-desc">感谢你的赞赏</div></li></ul></div></div><nav class="pagination-post" id="pagination"></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BR</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/YZBRH"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">建设中~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#00-06"><span class="toc-number">1.1.</span> <span class="toc-text">00:06</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%84%E8%B1%86%E8%A1%A8%E6%83%85%E5%8C%85"><span class="toc-number">1.1.1.</span> <span class="toc-text">黄豆表情包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%86%8A%E7%8C%AB%E4%BA%BA%E8%A1%A8%E6%83%85%E5%8C%85"><span class="toc-number">1.1.2.</span> <span class="toc-text">熊猫人表情包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%81%BA%E3%82%93%E3%81%A1%E3%82%83%E3%82%93"><span class="toc-number">1.1.3.</span> <span class="toc-text">ぺんちゃん</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8C%AB"><span class="toc-number">1.1.4.</span> <span class="toc-text">猫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BF%E8%B1%86%E8%9B%99"><span class="toc-number">1.1.5.</span> <span class="toc-text">绿豆蛙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E5%85%83-%E7%8C%BF"><span class="toc-number">1.1.6.</span> <span class="toc-text">二次元(猿)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8D%89%E6%B3%A5%E9%A9%AC"><span class="toc-number">1.1.7.</span> <span class="toc-text">草泥马</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%9C%E6%96%87%E5%AD%97"><span class="toc-number">1.1.8.</span> <span class="toc-text">颜文字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%B1%E5%BC%80%E5%AF%8C%E8%B4%B5"><span class="toc-number">1.1.9.</span> <span class="toc-text">花开富贵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#00-57"><span class="toc-number">1.2.</span> <span class="toc-text">00:57</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#01-01"><span class="toc-number">1.3.</span> <span class="toc-text">01:01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#01-05"><span class="toc-number">1.4.</span> <span class="toc-text">01:05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#01-15"><span class="toc-number">1.5.</span> <span class="toc-text">01:15</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#01-23"><span class="toc-number">1.6.</span> <span class="toc-text">01:23</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#01-33"><span class="toc-number">1.7.</span> <span class="toc-text">01:33</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#01-58"><span class="toc-number">1.8.</span> <span class="toc-text">01:58</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-00"><span class="toc-number">1.9.</span> <span class="toc-text">02:00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-04"><span class="toc-number">1.10.</span> <span class="toc-text">02:04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-07"><span class="toc-number">1.11.</span> <span class="toc-text">02:07</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-32"><span class="toc-number">1.12.</span> <span class="toc-text">02:32</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-35"><span class="toc-number">1.13.</span> <span class="toc-text">02:35</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-24"><span class="toc-number">1.14.</span> <span class="toc-text">03:24</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-30"><span class="toc-number">1.15.</span> <span class="toc-text">03:30</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-37"><span class="toc-number">1.16.</span> <span class="toc-text">03:37</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-40"><span class="toc-number">1.17.</span> <span class="toc-text">03:40</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#05-48"><span class="toc-number">1.18.</span> <span class="toc-text">05:48</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#06-00"><span class="toc-number">1.19.</span> <span class="toc-text">06:00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#06-12"><span class="toc-number">1.20.</span> <span class="toc-text">06:12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#06-27"><span class="toc-number">1.21.</span> <span class="toc-text">06:27</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#06-40"><span class="toc-number">1.22.</span> <span class="toc-text">06:40</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#06-43"><span class="toc-number">1.23.</span> <span class="toc-text">06:43</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#07-01"><span class="toc-number">1.24.</span> <span class="toc-text">07:01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#07-36"><span class="toc-number">1.25.</span> <span class="toc-text">07:36</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#07-42"><span class="toc-number">1.26.</span> <span class="toc-text">07:42</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#07-49"><span class="toc-number">1.27.</span> <span class="toc-text">07:49</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#07-55"><span class="toc-number">1.28.</span> <span class="toc-text">07:55</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-03"><span class="toc-number">1.29.</span> <span class="toc-text">08:03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-13"><span class="toc-number">1.30.</span> <span class="toc-text">08:13</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-19"><span class="toc-number">1.31.</span> <span class="toc-text">08:19</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-24"><span class="toc-number">1.32.</span> <span class="toc-text">08:24</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-31"><span class="toc-number">1.33.</span> <span class="toc-text">08:31</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-37"><span class="toc-number">1.34.</span> <span class="toc-text">08:37</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/b2b3bdef.html" title="《这泱泱美丽世界》第0集解析">《这泱泱美丽世界》第0集解析</a><time datetime="2025-06-29T17:24:08.000Z" title="发表于 2025-06-30 01:24:08">2025-06-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/1eb80104.html" title="HXCTF-WEB">HXCTF-WEB</a><time datetime="2025-05-11T11:04:29.000Z" title="发表于 2025-05-11 19:04:29">2025-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/8231ea2f.html" title="TGCTF2025-SevenSword-WP">TGCTF2025-SevenSword-WP</a><time datetime="2025-04-14T13:01:52.000Z" title="发表于 2025-04-14 21:01:52">2025-04-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/8cae4c93.html" title="XYCTF2025-WEB-signIn+nowYouSeeMe1+ezPuzzle">XYCTF2025-WEB-signIn+nowYouSeeMe1+ezPuzzle</a><time datetime="2025-04-04T15:00:17.000Z" title="发表于 2025-04-04 23:00:17">2025-04-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/dec3175.html" title="Unity马赛克去除的几种方法">Unity马赛克去除的几种方法</a><time datetime="2025-02-16T05:33:05.000Z" title="发表于 2025-02-16 13:33:05">2025-02-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/10fa73ae.html" title="VNCTF2025-WP">VNCTF2025-WP</a><time datetime="2025-02-10T05:59:00.000Z" title="发表于 2025-02-10 13:59:00">2025-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/c2cf88b8.html" title="2024年度总结"><img src="/img/loading.gif" data-original="/images/f0adcc3244dd7fd5358698e9945ac7e8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024年度总结"/></a><div class="content"><a class="title" href="/post/c2cf88b8.html" title="2024年度总结">2024年度总结</a><time datetime="2025-01-29T06:02:27.000Z" title="发表于 2025-01-29 14:02:27">2025-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/27dd2185.html" title="XAUTCTF2024NewCupPartr2暨2025冬季赛-官方题解">XAUTCTF2024NewCupPartr2暨2025冬季赛-官方题解</a><time datetime="2025-01-22T09:41:31.000Z" title="发表于 2025-01-22 17:41:31">2025-01-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/31fded05.html" title="Ollama+CodeGeeX+VScode的本地LLM部署方案">Ollama+CodeGeeX+VScode的本地LLM部署方案</a><time datetime="2024-12-04T12:50:05.000Z" title="发表于 2024-12-04 20:50:05">2024-12-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/5d53a887.html" title="简单盘点Linux">简单盘点Linux</a><time datetime="2024-11-25T05:03:36.000Z" title="发表于 2024-11-25 13:03:36">2024-11-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By BR</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023014186号-2</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.yzbrh.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.yzbrh.top',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><div class="aplayer no-destroy" data-id="12305505573" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-order="random" data-mutex="true"> </div><script defer src="/js/sweetalert2.all.js"></script><script defer src="/js/lunar.js"></script><script defer src="/js/day.js"></script><script async src="/js/console.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="150" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>
