@@ -190,7 +190,6 @@
 <p>　　斜体字绕过，本质上是一种特殊的unicode编码绕过技巧。</p>
 <p>　　‍</p>
 <h2 id="“斜体字符”为什么可以被利用？"><a href="#“斜体字符”为什么可以被利用？" class="headerlink" title="“斜体字符”为什么可以被利用？"></a>“斜体字符”为什么可以被利用？</h2><p>　　这本质上是统一码兼容性的特性，它确保在可能具有不同视觉外观或行为的字符或字符序列之间，表示相同的抽象字符。具体的表现，就是将一些斜体字符转化为普通的常见字符，例如上文中<code>𝓼</code>​实际代替了<code>s</code>​，这是一种规范化处理。</p>
-<p>　　‍</p>
 <p>　　可参照文档：<a target="_blank" rel="noopener" href="https://www.unicode.org/reports/tr15/">https://www.unicode.org/reports/tr15/</a></p>
 <p>　　这种规范化形式有四种：</p>
 <table>
@@ -244,6 +243,8 @@
 <p>　　比如说：</p>
 <ul>
 <li>“ﬃ”（U+FB03，连字） → “f” + “f” + “i”</li>
+</ul>
+<ul>
 <li>“①”（U+2460，带圈数字） → “1”</li>
 <li>“Ａ”（全角 A, U+FF21） → “A”（半角 A, U+0041）</li>
 </ul>
@@ -257,9 +258,7 @@
 <li>“①” → “1”（无法再合成）</li>
 <li>“ﬁ”（U+FB01） → “f” + “i” → 若有预组合则合成（但“fi”无预组合字符，所以保持分开）</li>
 </ul>
-<p>　　‍</p>
 <p>　　总结来说，KFD和KFC都是规范等价的，视觉和语义完全相同；而NFKD和NFKC是兼容等价的，可能改变语义或外观。</p>
-<p>　　‍</p>
 <p>　　这是python3当中对于Unicode编码的说明：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/howto/unicode.html">https://docs.python.org/zh-cn/3/howto/unicode.html</a></p>
 <p>　　通过以下代码我们可以进行测试：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unicodedata</span><br><span class="line">payload = <span class="string">&quot;ʰᵉ𝓵𝓵ℴ︐ʷℴ𝘳𝓵𝑑&quot;</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFD: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFD&#x27;</span>, payload))</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFC: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFC&#x27;</span>, payload))</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFKD: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFKD&#x27;</span>, payload))</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFKC: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFKC&#x27;</span>, payload))</span><br></pre></td></tr></table></figure>
@@ -268,14 +267,14 @@
 <p>　　可以看到KFC和KFD保持了原有信息，而NFKC和NFKD则是被转成了简单字符的形式。</p>
 <p>　　在这种情况下，如果WAF仅仅只是进行了关键词匹配的过滤，就存在被绕过的可能，有点像是一种弱类型比较。</p>
 <p>　　‍</p>
-<h2 id="为什么需要有Unicode规范化？"><a href="#为什么需要有Unicode规范化？" class="headerlink" title="为什么需要有Unicode规范化？"></a>为什么需要有Unicode规范化？</h2><p>​		因为同一个字符在 Unicode 中可能有多种不同的编码表示（例如 “é” 可以是一个预组字符，也可以是 “e” 加一个重音符号），虽然显示效果一样，但程序会认为它们不相等。<br><strong>Unicode 规范化</strong>就是把不同表示统一成一种标准形式（如 NFC），确保：</p>
+<h2 id="为什么需要有Unicode规范化？"><a href="#为什么需要有Unicode规范化？" class="headerlink" title="为什么需要有Unicode规范化？"></a>为什么需要有Unicode规范化？</h2><p>　　因为同一个字符在 Unicode 中可能有多种不同的编码表示（例如 “é” 可以是一个预组字符，也可以是 “e” 加一个重音符号），虽然显示效果一样，但程序会认为它们不相等。<br><strong>Unicode 规范化</strong>就是把不同表示统一成一种标准形式（如 NFC），确保：</p>
 <ul>
 <li><p>字符串比较、查找、去重等操作结果正确；</p>
 </li>
 <li><p>不同来源的文本能一致处理。</p>
-<p>简言之：让“看起来一样”的文本，在程序里也“真的相等”。</p>
 </li>
 </ul>
+<p>　　简言之：让“看起来一样”的文本，在程序里也“真的相等”。</p>
 <h2 id="在Python中怎么利用？"><a href="#在Python中怎么利用？" class="headerlink" title="在Python中怎么利用？"></a>在Python中怎么利用？</h2><p>　　有以下这样的简单测试：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unicodedata</span><br><span class="line">payload = <span class="string">&quot;prinᵗ(1)&quot;</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFD: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFD&#x27;</span>, payload))</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFC: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFC&#x27;</span>, payload))</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFKD: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFKD&#x27;</span>, payload))</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;NFKC: &#x27;</span> + unicodedata.normalize(<span class="string">&#x27;NFKC&#x27;</span>, payload))</span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span>(payload)</span><br></pre></td></tr></table></figure>
 
@@ -285,7 +284,6 @@
 
 <p><img src="/img/loading.gif" data-original="/../post_img/39b2c5679e0cbaafe0fec0337eddee6e/image-20260126214855-0v8ylyo.png" alt="image"></p>
 <p>　　而字符串类型数据在实际表现上则采用<code>NFD/NFC</code>​进行处理，内容没有被改变。</p>
-<p>　　‍</p>
 <p>　　具体解释来说，在python3当中，我要执行一个函数，python3会按照<code>LEGB</code>​规则在各作用域找到对应的函数名去进行调用，也就是通过名字来找函数对象。而在python3当中，我们可以认为，设置的函数名在实际表现上就相当于经过了<code>NFKC/NFKD</code>​处理：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">tesᵗ</span>():</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">methods = [name <span class="keyword">for</span> name <span class="keyword">in</span> <span class="built_in">dir</span>(A) <span class="keyword">if</span> <span class="keyword">not</span> name.startswith(<span class="string">&#x27;__&#x27;</span>)]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[A]Actual method names:&quot;</span>, methods)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> methods:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;&#x27;<span class="subst">&#123;name&#125;</span>&#x27; -&gt; <span class="subst">&#123;[<span class="built_in">hex</span>(<span class="built_in">ord</span>(c)) <span class="keyword">for</span> c <span class="keyword">in</span> name]&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">methods = [name <span class="keyword">for</span> name <span class="keyword">in</span> <span class="built_in">dir</span>(B) <span class="keyword">if</span> <span class="keyword">not</span> name.startswith(<span class="string">&#x27;__&#x27;</span>)]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[B]Actual method names:&quot;</span>, methods)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> methods:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;&#x27;<span class="subst">&#123;name&#125;</span>&#x27; -&gt; <span class="subst">&#123;[<span class="built_in">hex</span>(<span class="built_in">ord</span>(c)) <span class="keyword">for</span> c <span class="keyword">in</span> name]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
 
