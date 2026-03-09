@@ -688,9 +688,9 @@
             
             <tag> CTF </tag>
             
-            <tag> web </tag>
-            
             <tag> CISCN </tag>
+            
+            <tag> web </tag>
             
         </tags>
       
@@ -721,9 +721,9 @@
             
             <tag> CTF </tag>
             
-            <tag> web </tag>
-            
             <tag> CISCN </tag>
+            
+            <tag> web </tag>
             
         </tags>
       
@@ -816,9 +816,9 @@
             
             <tag> CTF </tag>
             
-            <tag> BaseCTF </tag>
-            
             <tag> web </tag>
+            
+            <tag> BaseCTF </tag>
             
         </tags>
       
